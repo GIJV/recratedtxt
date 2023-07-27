@@ -1,0 +1,18 @@
+#Dizer o nome do personagem OK
+#Escolher Classe OK
+#Definir atributos OK
+#Escolher Arma baseado na classe
+#Escolher Dificuldade
+#Gerar Evento Aleatorio
+#Level up ou não
+#Upgrade de Skill (se tiver level up)
+#Gerar Evento aleatorio
+#Level up ou não
+#Upgrade de Skill (se tiver level up)
+#Gerar Evento aleatorio
+#Level up ou não
+#Upgrade de Skill (se tiver level up)
+#Gerar Evento aleatorio
+#Level up ou não
+#Upgrade de Skill (se tiver level up)
+#Gerar Evento aleatorio
