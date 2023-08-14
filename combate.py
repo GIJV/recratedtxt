@@ -4,8 +4,6 @@ import player, inimigo, skills
 vivo = True
 
 crit = False
-verificao = None
-verificao2 = None
 
 dano_player = 0
 
@@ -27,7 +25,6 @@ def dados(valor):
         return randint(1, 20)
     
 def multiplos_dados(quantidade, valor):
-    global verificao
     soma = 0
     for _ in range(quantidade):
         roll = dados(valor)
@@ -46,20 +43,20 @@ def maior_dado(quantidade):
     return max(resultados)
 
 def combate(enemy):
-    global crit, dano_player, verificao, cd_reduc, vivo
+    global crit, dano_player, cd_reduc, vivo
 
     buff = 0
+    hp = player.atributos['hp']
 
     inimigo.iniciar_inimigo(enemy)
 
     while True:
         #checar player
-        verificao = player.atributos['hp']
-        if verificao <= 0 and skills.kanyou == False:
+        if hp <= 0 and skills.kanyou == False:
             print("Foi de gamas")
             vivo = False
             break
-        elif verificao <= 0 and skills.kanyou == True:
+        elif hp <= 0 and skills.kanyou == True:
             print("Kanyou ativado")
             player.atributos['hp'] += (player.atributos['maxhp'] / 2)
             skills.kanyou = False
@@ -90,9 +87,9 @@ def combate(enemy):
                     buff += 1     
                 if skills.artesa == True:
                     buff += 1
-                verificao = player.atributos_arma['num_dados']
-                verificao2 = player.atributos_arma['dano']
-                roll = multiplos_dados((verificao + buff), verificao2)
+                dados = player.atributos_arma['num_dados']
+                dano = player.atributos_arma['dano']
+                roll = multiplos_dados((dados + buff), dano)
                 dano_player = roll + player.atributos_arma['dano_extra']
                 if crit == True:
                     crit = False
@@ -113,12 +110,12 @@ def combate(enemy):
             cd_reduc = False
 
         if enemy == 3:
-            verificao = inimigo.atributos['hp']
-            if verificao <= 50:
+            hp = inimigo.atributos['hp']
+            if hp <= 50:
                 inimigo.atributos['hp'] += 20
                 print("Jugger & Larry usaram: Ressurection - Ao chegar em 50HP ou menos, +20hp")
 
-        if verificao <= 0:
+        if hp <= 0:
             print("Você venceu, toma tua recompensa")
             player.ganhar_xp(inimigo.atributos['xp_dado'])
             break
@@ -224,19 +221,3 @@ def combate(enemy):
             player.atributos['cd'] -= 5
         if acao_inimigo == 2:
             inimigo.atributos['cd'] -= 5
-
-def get_presenca():
-    return player.atributos['pre']
-def get_cd():
-    return player.atributos['cd']
-def get_hp():
-    return player.atributos['hp']
-def get_fv():
-    return player.atributos['fv']
-
-def get_num_dados():
-    return player.atributos_arma['num_dados']
-def get_dados():
-    return player.atributos_arma['dano']
-def get_dano_extra():
-    return player.atributos_arma['dano_extra']
